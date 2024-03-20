@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#calcBoxContainer {
+    width: 700px;
+    height: 1055px;
+    border: 10px solid;
+    background-color: bisque;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.calcBtn {
+    cursor: pointer;
+    
+}
+
+.calcBtn button {
+    width: 100%;
+    height: 100%;
+    font-size: 22px;
+    font-weight:"bold";
+    /* background-color: bisque; */
+    border: none;
+    cursor: pointer;
+    
+}
+.calcBtn:hover {
+    fill: rgb(85, 5, 5);
+}
+
+.calcBtn:hover button {
+    background-color: rgb(154, 152, 152);
+}
+

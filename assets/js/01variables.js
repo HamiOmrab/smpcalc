@@ -1,0 +1,22 @@
+export const calcBoxContainer = document.querySelector('#calcBoxContainer');
+
+// export const oneBtn       = document.document.querySelector('#oneBtn');
+// export const twoBtn       = document.document.querySelector('#twoBtn');
+// export const threeBtn     = document.document.querySelector('#threeBtn');
+// export const fourBtn      = document.document.querySelector('#fourBtn');
+// export const fiveBtn      = document.document.querySelector('#fiveBtn');
+// export const sixBtn       = document.document.querySelector('#sixBtn');
+// export const sevenBtn     = document.document.querySelector('#sevenBtn');
+// export const eightBtn     = document.document.querySelector('#eightBtn');
+// export const nineBtn      = document.document.querySelector('#nineBtn');
+// export const zeroBtn      = document.document.querySelector('#zeroBtn');
+// export const dotBtn       = document.document.querySelector('#dotBtn');
+// export const plusBtn      = document.document.querySelector('#plusBtn');
+// export const minusBtn     = document.document.querySelector('#minusBtn');
+// export const MultipleBtn  = document.document.querySelector('#MultipleBtn');
+// export const divisionBtn  = document.document.querySelector('#divisionBtn');
+// export const plusMinusBtn = document.document.querySelector('#plusMinusBtn');
+// export const sqrBtn       = document.document.querySelector('#sqrBtn');
+// export const equalBtn     = document.document.querySelector('#equalBtn');
+// export const backBtn      = document.document.querySelector('#backBtn');
+// export const clearBtn     = document.document.querySelector('#clearBtn');
