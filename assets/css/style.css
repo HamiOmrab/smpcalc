@@ -33,3 +33,19 @@
     background-color: rgb(154, 152, 152);
 }
 
+.calcBtn foreignObject {
+    border: 2px solid gray;
+    width:33px;
+    height:30px;
+}
+
+.makeItBiger {
+    font-size: 1.5em;
+    font-weight: bolder;
+    line-height: 6px;
+}
+.reflected {
+    transform: scaleX(-1);
+    
+}
+
