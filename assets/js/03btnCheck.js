@@ -1,20 +1,27 @@
 const ButtonCheck  = {
-    setup: async () => {
+    async setup() {
         const allCalcBtnS = document.querySelectorAll('.calcBtn');
         class Calculator {
             constructor() {
-              this.tempString = "";
-              this.operator   = "";
-              this.firstNum   = 0;
-              this.secondNum  = 0;
-              this.resault    ="";
+              this.tempString   = "";
+              this.operator     = "";
+              this.isFirstNum   = false;
+              this.isSecondNum  = false;
+              this.isOpratorSet = false;
+              this.firstNum     = "";;
+              this.secondNum    = "";
+              this.resault      = "";
             }
-          
+            
             resetDefaultValues() {
-              this.tempString = "";
-              this.operator   = "";
-              this.firstNum   = 0;
-              this.secondNum  = 0;
+                this.tempString   = "";
+                this.operator     = "";
+                this.isFirstNum   = false;
+                this.isSecondNum  = false;
+                this.isOpratorSet = false;
+                this.firstNum     = "";;
+                this.secondNum    = "";
+                this.resault      = "";
             }
           }
         const calculator = new Calculator();
@@ -22,11 +29,10 @@ const ButtonCheck  = {
             calcBtn.addEventListener('click', () => {
                 let btnValue = calcBtn.id.substring(3);
                 let maxLength = calculator.tempString.length;
-                console.log(btnValue);
                 if (btnValue >= 0 && btnValue <= 9 && maxLength < 9) {
                     if (!maxLength && btnValue == 0) return 0;
                     else calculator.tempString = calculator.tempString.concat(btnValue);
-                    console.log('tempString = ', calculator.tempString);
+                    console.log(calculator.tempString);
                 }
                 else {
                     switch (btnValue) {
@@ -48,28 +54,110 @@ const ButtonCheck  = {
                         case 'Division':
                             break;
                         case 'Multiple':
+                            let acceptedValMult = this.checkStatus(calculator);
+                            if (calculator.firstNum == "" && calculator.operator == "") {
+                                calculator.firstNum   = acceptedValMult;
+                                calculator.operator   = '*';
+                                calculator.tempString = "";
+                                console.log(`${calculator.firstNum} X `); 
+                            }
+                            else if (calculator.firstNum == "" && calculator.operator == "") {
+                                calculator.operator   = '*';
+                                console.log(`${calculator.firstNum} X `); 
+                            }
+                            else if (calculator.firstNum != "" && calculator.secondNum == "") {
+                                calculator.secondNum = acceptedValMult;
+                                calculator.firstNum   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
+                                calculator.operator   = '*';
+                                calculator.tempString = "";
+                                calculator.secondNum = ""
+                                console.log(`${calculator.firstNum} X `);
+                            }
+                            else if (calculator.firstNum != "" && calculator.secondNum != "") {
+                                calculator.firstNum  = calculator.resault;
+                                calculator.secondNum = this.checkStatus(calculator);
+                                calculator.resault   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
+                                console.log(`sit3: ${calculator.firstNum} ${calculator.operator} ${calculator.secondNum} = ${calculator.resault}`);
+                                calculator.firstNum = calculator.resault;
+                                calculator.tempString = "";
+                                calculator.secondNum  = "";
+                                calculator.resault    = "";
+                                calculator.operator   = '*';
+                                console.log(`${calculator.firstNum} X `); 
+                            }
                             break;
                         case 'Minus':
                             break;
                         case 'Plus':
+                           
+                            let acceptedValPlus = this.checkStatus(calculator);
+                            if (calculator.firstNum == "" && calculator.operator == "") {
+                                calculator.firstNum   = acceptedValPlus;
+                                calculator.operator   = '+';
+                                calculator.tempString = "";
+                                console.log(`${calculator.firstNum} + `); 
+                            }
+                            else if (calculator.firstNum == "" && calculator.operator == "") {
+                                calculator.operator   = '+';
+                                console.log(`${calculator.firstNum} + `); 
+                            }
+                            else if (calculator.firstNum != "" && calculator.secondNum == "") {
+                                calculator.secondNum = acceptedValPlus;
+                                calculator.firstNum   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
+                                calculator.operator   = '+';
+                                calculator.tempString = "";
+                                calculator.secondNum = ""
+                                console.log(`${calculator.firstNum} + `);
+                            }
+                            else if (calculator.firstNum != "" && calculator.secondNum != "") {
+                                calculator.firstNum  = calculator.resault;
+                                calculator.secondNum = this.checkStatus(calculator);
+                                calculator.resault   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
+                                console.log(`sit3: ${calculator.firstNum} ${calculator.operator} ${calculator.secondNum} = ${calculator.resault}`);
+                                calculator.firstNum = calculator.resault;
+                                calculator.tempString = "";
+                                calculator.secondNum  = "";
+                                calculator.resault    = "";
+                                calculator.operator   = '+';
+                                console.log(`${calculator.firstNum} + `); 
+                            }
                             break;
                         case 'Equal':
+                            // if (calculator.isFirstNum && )
                             break;
                         case 'PlusMinus':
                             break;
   
                         default:
-                          // در صورتی که calcBtn.id با هیچ کدام از موارد بالا مطابقت نداشته باشد
                           break;
                       }
                 }
             })
+             
             
         });
         // return { tempString, oprator, firstNumb, secondNumb, resetDefaultValues };
 
+    },
+    checkStatus (calculator) {
+        let retVal = 0;
+       if (calculator.tempString.length != 0) {
+            retVal = Number(calculator.tempString)
+        }
+        return retVal;
+    },
+    makeOpration (firstNum,operator,secondNum) {
+        let result = "";
+        if (operator == '+') result = firstNum + secondNum;
+        else if (operator == '-') result = firstNum - secondNum;
+        else if (operator == '*') result = firstNum * secondNum;
+        else if (operator == '/' && !secondNum) result = firstNum * secondNum;
+        return result;
     }
-
+    // ,
+    // performOperation (operator, acceptedVal, calculator) {
+    //     console.log(`jjjjjjjjjj ${acceptedVal} + `);
+    // }
 }
 
 export default ButtonCheck;
