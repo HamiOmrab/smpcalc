@@ -1,30 +1,10 @@
+import Calculator from './04Calculator.js';
+
 const ButtonCheck  = {
     async setup() {
         const allCalcBtnS = document.querySelectorAll('.calcBtn');
-        class Calculator {
-            constructor() {
-              this.tempString   = "";
-              this.operator     = "";
-              this.isFirstNum   = false;
-              this.isSecondNum  = false;
-              this.isOpratorSet = false;
-              this.firstNum     = "";;
-              this.secondNum    = "";
-              this.resault      = "";
-            }
-            
-            resetDefaultValues() {
-                this.tempString   = "";
-                this.operator     = "";
-                this.isFirstNum   = false;
-                this.isSecondNum  = false;
-                this.isOpratorSet = false;
-                this.firstNum     = "";;
-                this.secondNum    = "";
-                this.resault      = "";
-            }
-          }
         const calculator = new Calculator();
+
         allCalcBtnS.forEach(calcBtn => {
             calcBtn.addEventListener('click', () => {
                 let btnValue = calcBtn.id.substring(3);
@@ -52,75 +32,16 @@ const ButtonCheck  = {
                         case 'Sqr':
                            break;
                         case 'Division':
+                            this.performOperationMPM('/', calculator);
                             break;
                         case 'Multiple':
-                            let acceptedValMult = this.checkStatus(calculator);
-                            if (calculator.firstNum == "" && calculator.operator == "") {
-                                calculator.firstNum   = acceptedValMult;
-                                calculator.operator   = '*';
-                                calculator.tempString = "";
-                                console.log(`${calculator.firstNum} X `); 
-                            }
-                            else if (calculator.firstNum == "" && calculator.operator == "") {
-                                calculator.operator   = '*';
-                                console.log(`${calculator.firstNum} X `); 
-                            }
-                            else if (calculator.firstNum != "" && calculator.secondNum == "") {
-                                calculator.secondNum = acceptedValMult;
-                                calculator.firstNum   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
-                                calculator.operator   = '*';
-                                calculator.tempString = "";
-                                calculator.secondNum = ""
-                                console.log(`${calculator.firstNum} X `);
-                            }
-                            else if (calculator.firstNum != "" && calculator.secondNum != "") {
-                                calculator.firstNum  = calculator.resault;
-                                calculator.secondNum = this.checkStatus(calculator);
-                                calculator.resault   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
-                                console.log(`sit3: ${calculator.firstNum} ${calculator.operator} ${calculator.secondNum} = ${calculator.resault}`);
-                                calculator.firstNum = calculator.resault;
-                                calculator.tempString = "";
-                                calculator.secondNum  = "";
-                                calculator.resault    = "";
-                                calculator.operator   = '*';
-                                console.log(`${calculator.firstNum} X `); 
-                            }
+                            this.performOperationMPM('*', calculator);
                             break;
                         case 'Minus':
+                            this.performOperationMPM('-', calculator);
                             break;
-                        case 'Plus':
-                           
-                            let acceptedValPlus = this.checkStatus(calculator);
-                            if (calculator.firstNum == "" && calculator.operator == "") {
-                                calculator.firstNum   = acceptedValPlus;
-                                calculator.operator   = '+';
-                                calculator.tempString = "";
-                                console.log(`${calculator.firstNum} + `); 
-                            }
-                            else if (calculator.firstNum == "" && calculator.operator == "") {
-                                calculator.operator   = '+';
-                                console.log(`${calculator.firstNum} + `); 
-                            }
-                            else if (calculator.firstNum != "" && calculator.secondNum == "") {
-                                calculator.secondNum = acceptedValPlus;
-                                calculator.firstNum   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
-                                calculator.operator   = '+';
-                                calculator.tempString = "";
-                                calculator.secondNum = ""
-                                console.log(`${calculator.firstNum} + `);
-                            }
-                            else if (calculator.firstNum != "" && calculator.secondNum != "") {
-                                calculator.firstNum  = calculator.resault;
-                                calculator.secondNum = this.checkStatus(calculator);
-                                calculator.resault   = this.makeOpration(calculator.firstNum, calculator.operator, calculator.secondNum);
-                                console.log(`sit3: ${calculator.firstNum} ${calculator.operator} ${calculator.secondNum} = ${calculator.resault}`);
-                                calculator.firstNum = calculator.resault;
-                                calculator.tempString = "";
-                                calculator.secondNum  = "";
-                                calculator.resault    = "";
-                                calculator.operator   = '+';
-                                console.log(`${calculator.firstNum} + `); 
-                            }
+                            case 'Plus':
+                            this.performOperationMPM('+', calculator);
                             break;
                         case 'Equal':
                             // if (calculator.isFirstNum && )
@@ -140,18 +61,42 @@ const ButtonCheck  = {
 
     },
     checkStatus (calculator) {
-        let retVal = 0;
-       if (calculator.tempString.length != 0) {
-            retVal = Number(calculator.tempString)
-        }
-        return retVal;
+        return calculator.tempString.length !== 0 ? Number(calculator.tempString) : 0;
     },
-    makeOpration (firstNum,operator,secondNum) {
+    performOperationMPM(operator, calculator) {
+        let acceptedValue = this.checkStatus(calculator);
+        if (calculator.firstNum === '' && calculator.operator === '') {
+            calculator.firstNum = acceptedValue;
+            calculator.operator = operator;
+            calculator.tempString = '';
+            console.log(`${calculator.firstNum} ${operator} `);
+        } else if (calculator.firstNum !== '' && calculator.secondNum === '') {
+            calculator.secondNum = acceptedValue;
+            calculator.firstNum = this.makeOperation(calculator.firstNum, calculator.operator, calculator.secondNum);
+            calculator.operator = operator;
+            calculator.tempString = '';
+            calculator.secondNum = '';
+            console.log(`${calculator.firstNum} ${operator} `);
+        } else if (calculator.firstNum !== '' && calculator.secondNum !== '') {
+            calculator.firstNum = calculator.result;
+            calculator.secondNum = acceptedValue;
+            calculator.result = this.makeOperation(calculator.firstNum, calculator.operator, calculator.secondNum);
+            console.log(`sit3: ${calculator.firstNum} ${calculator.operator} ${calculator.secondNum} = ${calculator.result}`);
+            calculator.firstNum = calculator.result;
+            calculator.tempString = '';
+            calculator.secondNum = '';
+            calculator.result = '';
+            calculator.operator = operator;
+            console.log(`${calculator.firstNum} ${operator} `);
+        }
+    },
+    makeOperation (firstNum,operator,secondNum) {
         let result = "";
         if (operator == '+') result = firstNum + secondNum;
         else if (operator == '-') result = firstNum - secondNum;
         else if (operator == '*') result = firstNum * secondNum;
-        else if (operator == '/' && !secondNum) result = firstNum * secondNum;
+        else if (operator == '/' &&  secondNum) result = firstNum / secondNum;
+        else if (operator == '/' && !secondNum) {console.log("Erreur"); return 0; }
         return result;
     }
     // ,
