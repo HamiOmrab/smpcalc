@@ -17,7 +17,6 @@ function performOperationMPM(operator, calculator) {
         calculator.secondNum = '';
         calcUpdate = calculator;
         console.log(`${calculator.firstNum} ${operator} `);
-        return calcUpdate;
 
     } else if (calculator.firstNum !== '' && calculator.secondNum !== '') {
         calculator.firstNum = calculator.result;
@@ -31,7 +30,6 @@ function performOperationMPM(operator, calculator) {
         calculator.operator = operator;
         calcUpdate = calculator;
         console.log(`${calculator.firstNum} ${operator} `);
-        return calcUpdate;
 
     }
 
