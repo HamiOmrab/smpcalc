@@ -32,6 +32,7 @@ class Calculator {
     }
     
     addDot () {
+        console.log('--------------------');
         if ( !this.tempString.includes('.') && this.tempString.length < 8) {
             this.tempString = (this.tempString.length) ? this.tempString.concat('.') : this.tempString.concat('0.');
             console.log('tempString = ', this.tempString);
@@ -64,21 +65,21 @@ class Calculator {
             this.optField.textContent = `${this.firstNum} ${operator}`;
         } 
         
-        // else if (this.firstNum !== '' && this.secondNum !== '') {
-        //     console.log('mamad');
-        //     this.firstNum = this.result;
-        //     this.secondNum = acceptedValue;
-        //     this.result = this.makeOperation(this.firstNum, this.operator, this.secondNum);
-        //     console.log(`sit3: ${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`);
-        //     this.optField.textContent = `${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`;
-        //     this.firstNum = this.result;
-        //     this.tempString = '';
-        //     this.secondNum = '';
-        //     this.result = '';
-        //     this.operator = operator;
-        //     console.log(`${this.firstNum} ${operator} `);
-        //     this.optField.textContent = `${this.firstNum} ${operator}`;
-        // }
+        else if (this.firstNum !== '' && this.secondNum !== '') {
+            console.log('mamad');
+            this.firstNum = this.result;
+            this.secondNum = acceptedValue;
+            this.result = this.makeOperation(this.firstNum, this.operator, this.secondNum);
+            console.log(`sit3: ${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`);
+            this.optField.textContent = `${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`;
+            this.firstNum = this.result;
+            this.tempString = '';
+            this.secondNum = '';
+            this.result = '';
+            this.operator = operator;
+            console.log(`${this.firstNum} ${operator} `);
+            this.optField.textContent = `${this.firstNum} ${operator}`;
+        }
     }
     
     makeOperation (firstNum,operator,secondNum) {
@@ -86,8 +87,8 @@ class Calculator {
         console.log(this);
         if      (operator == '+') result = firstNum + secondNum;
         else if (operator == '-') result = firstNum - secondNum;
-        else if (operator == '*') result = firstNum * secondNum;
-        else if (operator == '/') {
+        else if (operator == 'X') result = firstNum * secondNum;
+        else if (operator == '÷') {
             if (secondNum != 0) {
                 result = firstNum / secondNum;
             }
@@ -116,8 +117,12 @@ class Calculator {
         if (this.firstNum != "" && this.operator != "" && this.tempString != "") {
             let resault = this.makeOperation(Number(this.firstNum),this.operator,Number(this.tempString));
             console.log(`${this.firstNum} ${this.operator} ${this.tempString} = ${resault}`);
+            let tempDisplay = `${this.firstNum} ${this.operator} ${this.tempString} = ${resault}`;
             this.resetDefaultValues();
+            this.optField.innerHTML = tempDisplay;
+            this.resField.textContent = resault;
             this.tempString = resault.toString();
+            
         }
         console.log(this);
 

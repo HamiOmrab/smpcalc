@@ -28,10 +28,11 @@ const ButtonCheck  = {
                             calculator.radical();
                            break;
                         case 'Division':
-                            calculator.performOperationMPMD('/');
+                            calculator.performOperationMPMD('÷');
+                            
                             break;
                         case 'Multiple':
-                            calculator.performOperationMPMD('*');
+                            calculator.performOperationMPMD('X');
                             break;
                         case 'Minus':
                             calculator.performOperationMPMD('-');
@@ -72,10 +73,10 @@ const ButtonCheck  = {
                         calculator.backSpas();
                         break;
                     case '/':
-                        calculator.performOperationMPMD('/');
+                        calculator.performOperationMPMD('÷');
                         break;
                     case '*':
-                        calculator.performOperationMPMD('*');
+                        calculator.performOperationMPMD('X');
                         break;
                     case '-':
                         calculator.performOperationMPMD('-');
