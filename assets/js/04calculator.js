@@ -1,5 +1,7 @@
 class Calculator {
     constructor() {
+        this.optField = document.querySelector('#oprationField output');
+        this.resField = document.querySelector('#resultField output');
         this.tempString   = "";
         this.operator     = "";
         this.isFirstNum   = false;
@@ -11,6 +13,8 @@ class Calculator {
     }
 
     resetDefaultValues() {
+        this.optField.innerHTML = "";
+        this.resField.innerHTML = "0";
         this.tempString   = "";
         this.operator     = "";
         this.isFirstNum   = false;
@@ -26,11 +30,13 @@ class Calculator {
         else this.tempString = this.tempString.concat(btnValue);
         console.log(this.tempString);
     }
-
+    
     addDot () {
         if ( !this.tempString.includes('.') && this.tempString.length < 8) {
             this.tempString = (this.tempString.length) ? this.tempString.concat('.') : this.tempString.concat('0.');
             console.log('tempString = ', this.tempString);
+            this.optField.textContent = this.tempString;
+
         }
     }
     checkStatus () {
@@ -45,27 +51,34 @@ class Calculator {
             this.firstNum = acceptedValue;
             this.operator = operator;
             this.tempString = '';
-            console.log(`${this.firstNum} ${operator} `);
+            console.log(`${this.firstNum} ${operator}`);
+            this.optField.textContent = `${this.firstNum} ${operator}`;
+            
         } else if (this.firstNum !== '' && this.secondNum === '') {
             this.secondNum = acceptedValue;
             this.firstNum = this.makeOperation(this.firstNum, this.operator, this.secondNum);
-            console.log('mamad');
             this.operator = operator;
             this.tempString = '';
             this.secondNum = '';
             console.log(`${this.firstNum} ${operator} `);
-        } else if (this.firstNum !== '' && this.secondNum !== '') {
-            this.firstNum = this.result;
-            this.secondNum = acceptedValue;
-            this.result = this.makeOperation(this.firstNum, this.operator, this.secondNum);
-            console.log(`sit3: ${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`);
-            this.firstNum = this.result;
-            this.tempString = '';
-            this.secondNum = '';
-            this.result = '';
-            this.operator = operator;
-            console.log(`${this.firstNum} ${operator} `);
-        }
+            this.optField.textContent = `${this.firstNum} ${operator}`;
+        } 
+        
+        // else if (this.firstNum !== '' && this.secondNum !== '') {
+        //     console.log('mamad');
+        //     this.firstNum = this.result;
+        //     this.secondNum = acceptedValue;
+        //     this.result = this.makeOperation(this.firstNum, this.operator, this.secondNum);
+        //     console.log(`sit3: ${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`);
+        //     this.optField.textContent = `${this.firstNum} ${this.operator} ${this.secondNum} = ${this.result}`;
+        //     this.firstNum = this.result;
+        //     this.tempString = '';
+        //     this.secondNum = '';
+        //     this.result = '';
+        //     this.operator = operator;
+        //     console.log(`${this.firstNum} ${operator} `);
+        //     this.optField.textContent = `${this.firstNum} ${operator}`;
+        // }
     }
     
     makeOperation (firstNum,operator,secondNum) {
@@ -75,15 +88,18 @@ class Calculator {
         else if (operator == '-') result = firstNum - secondNum;
         else if (operator == '*') result = firstNum * secondNum;
         else if (operator == '/') {
-            if (secondNum) {
+            if (secondNum != 0) {
                 result = firstNum / secondNum;
             }
             else {
                 console.log("Erreur");
-                throw new Error("Division by zero is not allowed.");
+                // throw new Error("Division by zero is not allowed.");
+                result = "Error";
+                this.resetDefaultValues();
                 return 0;
             }
         }
+        this.resField.textContent = result;
         return result;
     }
 
@@ -107,8 +123,18 @@ class Calculator {
 
     }
     backSpas () {
-        this.tempString = (this.tempString.length) ? this.tempString.slice(0, -1) : "" ;
+        console.log(this);
+        if (this.operator == "") {
+            this.tempString = (this.tempString.length) ? this.tempString.slice(0, -1) : "" ;
+        }
+        else {
+            this.operator = "";
+            this.tempString = this.firstNum;
+            this.firstNum = "";
+        }
         console.log('tempString = ', this.tempString);
+        this.optField.textContent = this.tempString;
+
     }
 
     radical() {
